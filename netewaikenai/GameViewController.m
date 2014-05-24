@@ -111,13 +111,14 @@
     hiyokoArray = [[NSMutableArray alloc]init];//配列の生成！ここ大事
     
     //ひよこの数をランダムに
-    hiyokoAmount = arc4random() % 5 + 5;
+    hiyokoAmount = arc4random() % 10 + 5;
     
     for (int i = 0; i < hiyokoAmount; i++ ) {
         UIImageView *hiyoko = [[UIImageView alloc]init];
         hiyoko.image = [UIImage imageNamed:@"hiyo.png"];
         //位置の指定
-        hiyoko.frame = CGRectMake(320, 20 + 40*i, 60, 60);
+        int rnd = (arc4random() % 8) * 40;
+        hiyoko.frame = CGRectMake(320, 20 + rnd, 60, 60);
         [self.view addSubview:hiyoko];
         [hiyokoArray addObject:hiyoko];
     }
@@ -172,15 +173,17 @@
     for (int i = 0; i < hiyokoArray.count; i++) {
         
         UIImageView *hiyoko = hiyokoArray[i];
+        CGFloat delayRnd = (arc4random() % 5) /20.0;
+        CGFloat durationRnd = (arc4random() % 5) /20.0 + 1.0;
         
         //ここでそれぞれのひよこにアニメを追加
         [UIImageView
-         animateWithDuration: 2.0//アニメーション時間
-         delay: 0//開始の遅延時間
+         animateWithDuration: durationRnd//アニメーション時間
+         delay: delayRnd//開始の遅延時間
          options:0 //アニメーションオプション
          animations:^{
              //アニメーション後のViewの挙動
-             hiyoko.frame = CGRectMake(-60, hiyoko.frame.origin.y, 60, 60);
+             hiyoko.frame = CGRectMake(-120, hiyoko.frame.origin.y, 60, 60);
          }
          completion:nil //終了時のプロセス
          ];
